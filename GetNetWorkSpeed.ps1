@@ -1,4 +1,4 @@
-echo (get-date) > 'WorkStationSpeeds.txt'
+echo (get-date)`n > 'WorkStationSpeeds.txt'
 
 # this function is to get Host's speed
 function getspeed($hostname){
@@ -8,21 +8,18 @@ function getspeed($hostname){
   }
 
 
-# Create hosts list of Online Server/Workstations
+# Create hosts list of Online Server/Workstations & Speed
 $basename='MCKNWKS'
-$hosts=@()
-for($i=0;$i -le 125; $i++){
+for($i=0;$i -le 5; $i++){
   $n = $basename+$i
+
+  # Check if Host is online
   if(Test-Connection -Cn $n -BufferSize 16 -Count 1 -ea 0 -quiet){
-    $hosts+=$n
     echo "$n - Online"
+
+    # If so, grab the network speed
+    echo ("* Getting Network Information for: $n") >> 'WorkStationSpeeds.txt'
+    getspeed $n >> 'WorkStationSpeeds.txt'
     }
   else {echo "$n - Offline" }
-  }
-
-
-# Get Speed for each Host on line
-Foreach($h in $hosts){
-  getspeed $h >> 'WorkStationSpeeds.txt' - Append
-  echo "Getting speed of $h"
   }
