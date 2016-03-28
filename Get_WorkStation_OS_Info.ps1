@@ -32,7 +32,6 @@ function GetOSinfo($hostname){
 
 
 # Create information list from the above function
-#$header = @('PCName', 'OS', 'Manufacturer', 'Model', 'SerialNumber', 'RAM (GB)', 'CPU', 'Last Login', 'Uptime Since', 'NetSpeed (MB)') -encoding ASCII
 $header = 'PCName,OS,Manufacturer,Model,SerialNumber,RAM (GB),CPU,Last Login,Uptime Since,NetSpeed (MB)'
 $header | set-content $outputfile
 
