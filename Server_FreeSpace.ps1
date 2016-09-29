@@ -5,7 +5,7 @@ echo $outputfile
 Get-Date > $outputfile
 
 # List of Servers 
-$servs = @("MCKNSERV2","MCKNSERV3","MCKNSERV4","MCKNSERV5","MCKNSERV6","MCKNSERV7","MCKNSERV8","MCKNSERV9","MCKNSERV10")
+$servs = @("PrdRadMckApp01","PrdRadMckApp02","PrdRadMckApp03","PrdRadMckApp04","PrdRadMckApp05")
 
 
 foreach ($server in $servs) {
