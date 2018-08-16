@@ -40,11 +40,3 @@ if($logs.Count -ge 2){
     echo "Get-Content \\$lserver\i$\ali\site\log\$llogfile -Wait"
     }
 else{ echo "Could not locate logs for the modality: $Modality" }
-
-
-
-#$a = select-string -path ".\igen_erct_importer_5.log" -patter "setPatientLastName"
-#$b = select-string -path ".\igen_erct_importer_5.log" -patter "setPatientFirstName"
-#$c = select-string -path ".\igen_erct_importer_5.log" -patter "setPatientMiddleName"
-#$d = select-string -path ".\igen_erct_importer_5.log" -patter "setAccessionNumber"
-#$e = select-string -path ".\igen_erct_importer_5.log" -patter "setStudyPublicID"
