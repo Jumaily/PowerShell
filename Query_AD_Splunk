@@ -11,7 +11,6 @@ foreach ($i in $elevatedA) { Get_info_to_Splunk($i) }
 
 # GET:  name, passwordlastset, lastlogondate
 function Get_info_to_Splunk($accounts) {
-    Write-Output "Getting $i "
     Get-aduser -filter {samaccountName -like $accounts } -Server AD123MV1.ad.ac.ad:1234 `
     -Properties SAMAccountName, LastLogonDate, PasswordLastSet, PasswordExpired | `
     Select-Object SAMAccountName, passwordlastset, lastlogondate | `
