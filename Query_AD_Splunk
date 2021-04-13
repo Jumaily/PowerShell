@@ -1,0 +1,27 @@
+# Splunk API Keys (put you're own API keys in here
+$url = "https://http-inputs-edu.splunkcloud.com:443/services/collector"
+$token = "012345678-ABC-3210-EFG-9876543210EF"
+$header = @{Authorization = "Splunk $token"}
+
+
+# All the type of elevated accounts
+$elevatedA = @('*_admin', '*_sys', 'elevated_', 'DomainAdmin_*')
+foreach ($i in $elevatedA) { Get_info_to_Splunk($i) }
+
+
+# GET:  name, passwordlastset, lastlogondate
+function Get_info_to_Splunk($accounts) {
+    Write-Output "Getting $i "
+    Get-aduser -filter {samaccountName -like $accounts } -Server AD123MV1.ad.ac.ad:1234 `
+    -Properties SAMAccountName, LastLogonDate, PasswordLastSet, PasswordExpired | `
+    Select-Object SAMAccountName, passwordlastset, lastlogondate | `
+    ForEach-Object { 
+        $usr = $_.SAMAccountName
+        $pwl = $_.passwordlastset 
+        $log = $_.lastlogondate
+        $u = """SAMAccountName=$usr, passwordlastset=$pwl, lastlogondate=$log""" 
+        $b = '{"sourcetype":"Elevated_Accounts", "source":"'+$accounts+'","host":"'+$env:computername+'","event":'
+        $bb = $b + $u + '}'
+        $result = Invoke-WebRequest -Uri $url  -Headers $header -Body $bb -Method POST        
+        }
+    }
